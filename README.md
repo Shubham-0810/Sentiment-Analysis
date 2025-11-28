@@ -133,7 +133,7 @@ http://localhost:8501
 
 All logs are handled through:
 
-config/logger.py
+`config/logger.py`
 
 Logging includes:
 
@@ -146,18 +146,18 @@ Logging includes:
 ## Model Files
 
 Place your HuggingFace model folders inside the `artifacts/` directory:
-
+```bash
 roberta-sentiment-tokenizer/
 roberta-sentiment-analysis/
-
+```
 
 These must include files such as:
-
+```bash
 - config.json
 - tokenizer.json
 - vocab files (if required)
 - pytorch_model.bin
-
+```
 ---
 
 ## License
