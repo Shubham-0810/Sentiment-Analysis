@@ -43,30 +43,34 @@ The application predicts whether a movie review is positive or negative and retu
 ## Installation and Setup (using uv)
 
 ### 1. Clone the repository
-```
+```bash
 git clone <your-repo-url>
 cd project
 ```
 
 ### 2. Create a virtual environment
-
-`uv venv`
+```bash
+uv venv
+```
 
 
 ### 3. Activate the environment
 
 macOS / Linux
-`source .venv/bin/activate`
-
+```bash
+source .venv/bin/activate
+```
 Windows
-`.venv\Scripts\activate`
-
+```bash
+.venv\Scripts\activate
+```
 
 ### 4. Install dependencies
 
 This project uses a `pyproject.toml`, so install everything using:
-
-`uv sync`
+```bash
+uv sync
+```
 
 
 ---
@@ -74,11 +78,9 @@ This project uses a `pyproject.toml`, so install everything using:
 ## Environment Variable (Optional)
 
 The frontend uses the following environment variable:
-
+```bash
 API_URL=http://localhost:8000/get-sentiment
-
-yaml
-Copy code
+```
 
 If not set, it defaults to the same value.
 
@@ -87,25 +89,20 @@ If not set, it defaults to the same value.
 ## Running the Application
 
 ### 1. Start the FastAPI backend
-
+```python
 uvicorn backend.main:app --reload --port 8000
-
-shell
-Copy code
+```
 
 ### 2. Start the Streamlit frontend
-
+```python
 streamlit run frontend/app.py
+```
 
-shell
-Copy code
 
 ### 3. Open the application in your browser
-
+```bash
 http://localhost:8501
-
-yaml
-Copy code
+```
 
 ---
 
@@ -114,24 +111,21 @@ Copy code
 ### Endpoint: POST /get-sentiment
 
 **Request Body:**
-
+```yaml
 {
 "review": "The movie was amazing!"
 }
-
-markdown
-Copy code
+```
 
 **Response Example:**
-
+```markdown
 {
 "sentiment": 1,
 "confidence": 0.97,
 "all_confidence": [0.03, 0.97]
 }
+```
 
-yaml
-Copy code
 
 ---
 
@@ -140,9 +134,6 @@ Copy code
 All logs are handled through:
 
 config/logger.py
-
-yaml
-Copy code
 
 Logging includes:
 
@@ -159,8 +150,6 @@ Place your HuggingFace model folders inside the `artifacts/` directory:
 roberta-sentiment-tokenizer/
 roberta-sentiment-analysis/
 
-yaml
-Copy code
 
 These must include files such as:
 
