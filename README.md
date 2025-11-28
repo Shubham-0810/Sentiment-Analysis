@@ -1,187 +1,184 @@
-🎬 Movie Review Sentiment Analysis
+# Movie Review Sentiment Analysis
 
-A complete end-to-end sentiment analysis system built using:
+This project is an end-to-end sentiment analysis system built using:
 
-FastAPI (backend API)
+- FastAPI for the backend API
+- Streamlit for the frontend user interface
+- HuggingFace RoBERTa model for text classification
+- Scikit-learn Pipeline for preprocessing and inference
 
-Streamlit (frontend UI)
+The application predicts whether a movie review is positive or negative and returns confidence scores.
 
-HuggingFace RoBERTa (transformer model)
+---
 
-Scikit-learn Pipeline (preprocessing + model wrapper)
+## Features
 
-The system predicts whether a movie review is Positive or Negative, along with confidence scores for each class.
+### Frontend (Streamlit)
 
-📁 Project Structure
-project/
-│
-├── frontend/
-│   └── app.py                     # Streamlit UI
-│
-├── backend/
-│   └── main.py                    # FastAPI backend API
-│
-├── pipeline/
-│   └── pipeline_module.py         # Preprocessing + model inference pipeline
-│
-├── artifacts/
-│   ├── roberta-sentiment-tokenizer/
-│   └── roberta-sentiment-analysis/
-│
-├── config/
-│   └── logger.py                  # Logging configuration
-│
-└── pyproject.toml                 # Dependencies for uv / pip
+- Text input to enter a movie review
+- Sends review text to the backend API for prediction
+- Displays:
+  - Predicted sentiment (0 = Negative, 1 = Positive)
+  - Confidence score for the prediction
+  - Confidence scores for all classes
 
-✨ Features
-Frontend (Streamlit)
+### Backend (FastAPI)
 
-Input text box for entering a movie review
+- Loads the RoBERTa model and pipeline during startup
+- Provides a POST endpoint at `/get-sentiment`
+- Uses Pydantic for request validation
+- Returns sentiment predictions in JSON format
 
-Calls FastAPI endpoint for prediction
+### Machine Learning Pipeline
 
-Displays:
+- Uses HuggingFace RoBERTa tokenizer and model
+- Includes a preprocessing transformer for cleaning and tokenizing text
+- Wraps model inference inside a Scikit-learn pipeline
+- Outputs:
+  - Predicted sentiment class
+  - Softmax probabilities for each class
 
-Sentiment label
+---
 
-Confidence of predicted class
+## Installation and Setup (using uv)
 
-Confidence scores for all classes
+### 1. Clone the repository
 
-Backend (FastAPI)
-
-Loads the RoBERTa model pipeline at startup
-
-Provides REST endpoint:
-POST /get-sentiment
-
-Validates input using Pydantic
-
-Returns structured prediction output
-
-Pipeline
-
-HuggingFace RoBERTa tokenizer + model
-
-Custom preprocessing transformer (lowercasing + tokenization)
-
-Scikit-learn Pipeline wrapper
-
-Outputs:
-
-Predicted label
-
-Softmax probabilities
-
-⚙️ Installation & Setup
-
-This project uses uv for environment management and dependency installation.
-
-1. Clone the Repository
 git clone <your-repo-url>
 cd project
 
-2. Create a uv Environment
+shell
+Copy code
+
+### 2. Create a virtual environment
+
 uv venv
 
-3. Activate the Environment
-# Linux / macOS
+shell
+Copy code
+
+### 3. Activate the environment
+
+macOS / Linux
 source .venv/bin/activate
 
-# Windows
+Windows
 .venv\Scripts\activate
 
-4. Install Dependencies
+csharp
+Copy code
 
-Since you have a pyproject.toml, just run:
+### 4. Install dependencies
+
+This project uses a `pyproject.toml`, so install everything using:
 
 uv sync
 
+yaml
+Copy code
 
-This installs all dependencies defined in the project.
+---
 
-🌐 Environment Variables
+## Environment Variable (Optional)
 
-The Streamlit app uses:
+The frontend uses the following environment variable:
 
 API_URL=http://localhost:8000/get-sentiment
 
+yaml
+Copy code
 
-If not set, it defaults to:
+If not set, it defaults to the same value.
 
-http://localhost:8000/get-sentiment
+---
 
+## Running the Application
 
-You can export it if needed:
+### 1. Start the FastAPI backend
 
-export API_URL="http://localhost:8000/get-sentiment"
-
-🚀 Running the Application
-1. Start the Backend
 uvicorn backend.main:app --reload --port 8000
 
-2. Start the Frontend
+shell
+Copy code
+
+### 2. Start the Streamlit frontend
+
 streamlit run frontend/app.py
 
-3. Open in Browser
+shell
+Copy code
+
+### 3. Open the application in your browser
+
 http://localhost:8501
 
+yaml
+Copy code
 
-Enter a review → Receive sentiment prediction → View confidence scores.
+---
 
-📤 API Usage
-POST /get-sentiment
-Request
+## API Example
+
+### Endpoint: POST /get-sentiment
+
+**Request Body:**
+
 {
-  "review": "The movie was amazing!"
+"review": "The movie was amazing!"
 }
 
-Response
+markdown
+Copy code
+
+**Response Example:**
+
 {
-  "sentiment": 1,
-  "confidence": 0.97,
-  "all_confidence": [0.03, 0.97]
+"sentiment": 1,
+"confidence": 0.97,
+"all_confidence": [0.03, 0.97]
 }
 
-📝 Logging
+yaml
+Copy code
 
-The app uses a centralized logging utility:
+---
+
+## Logging
+
+All logs are handled through:
 
 config/logger.py
 
+yaml
+Copy code
 
-Logs include:
+Logging includes:
 
-Backend startup events
+- Model loading messages
+- Incoming request logs
+- Prediction and error details
 
-Model loading status
+---
 
-Incoming reviews
+## Model Files
 
-Prediction & errors
-
-📦 Model Files (Important)
-
-Place the following inside the artifacts/ directory:
+Place your HuggingFace model folders inside the `artifacts/` directory:
 
 roberta-sentiment-tokenizer/
-
 roberta-sentiment-analysis/
 
-These must be HuggingFace-style directories containing:
+yaml
+Copy code
 
-config.json
+These must include files such as:
 
-tokenizer.json
+- config.json
+- tokenizer.json
+- vocab files (if required)
+- pytorch_model.bin
 
-vocab.json (if applicable)
+---
 
-pytorch_model.bin
+## License
 
-etc.
-
-Otherwise, the pipeline will not load.
-
-📜 License
-
-Feel free to add a license of your choice (MIT recommended).
+MIT License (or your preferred license)
