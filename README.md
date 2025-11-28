@@ -43,39 +43,31 @@ The application predicts whether a movie review is positive or negative and retu
 ## Installation and Setup (using uv)
 
 ### 1. Clone the repository
-
+```
 git clone <your-repo-url>
 cd project
-
-shell
-Copy code
+```
 
 ### 2. Create a virtual environment
 
-uv venv
+`uv venv`
 
-shell
-Copy code
 
 ### 3. Activate the environment
 
 macOS / Linux
-source .venv/bin/activate
+`source .venv/bin/activate`
 
 Windows
-.venv\Scripts\activate
+`.venv\Scripts\activate`
 
-csharp
-Copy code
 
 ### 4. Install dependencies
 
 This project uses a `pyproject.toml`, so install everything using:
 
-uv sync
+`uv sync`
 
-yaml
-Copy code
 
 ---
 
