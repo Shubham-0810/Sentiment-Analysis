@@ -2,15 +2,15 @@ import streamlit as st
 import requests
 import numpy as np
 import os
-from config.logger import get_logger
+# from config.logger import get_logger
 
-logger = get_logger(__name__)   
+# logger = get_logger(_name_)   
 api_url = os.getenv('API_URL', "http://localhost:8000/get-sentiment")
 text = st.text_input('Give your review here')
 if st.button('Predict'):
-    if text:
+    if text:    
         with st.spinner('Getting Sentiment...'):
-            response = requests.post('http://localhost:8000/get-sentiment', json={'text': text})
+            response = requests.post(api_url, json={'review': text})    
             if response.status_code == 200:
                 response_json = response.json()
                 sentiment = response_json.get('sentiment')

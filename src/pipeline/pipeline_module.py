@@ -25,10 +25,8 @@ class PreprocessingTransformer(BaseEstimator, TransformerMixin):
         return self 
 
     def transform(self, X: str, y = None):
-        if not isinstance(X, str):
-            raise TypeError('Input X must be a string.')
         x_processed = X.strip().lower() 
-        encoded = self.tokenizer([x_processed], padding=True, truncation=True, max_length = 128, return_tensors = 'pt')
+        encoded = self.tokenizer([x_processed], padding=True, truncation=True, max_length = 256, return_tensors = 'pt')
         encoded_data = {
                 'input_ids': encoded['input_ids'],
                 'attention_mask': encoded['attention_mask']
@@ -39,7 +37,7 @@ class SentimentPredictor(BaseEstimator):
     def __init__(self):
         self.model_path = MODEL_PATH
         self.model: RobertaForSequenceClassification
-        self.model = RobertaForSequenceClassification.from_pretrained(self.model_path, from_tf=True)
+        self.model = RobertaForSequenceClassification.from_pretrained(self.model_path)
     
     def fit(self, X, y=None):
         return self

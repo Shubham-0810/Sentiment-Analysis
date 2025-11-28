@@ -38,7 +38,7 @@ def get_text(text: TextInput, request:Request):
     logger.info(f'Recieved review: {review}')
     try:
         sentiment_pipeline = request.app.state.sentiment_pipeline
-        probs, preds = sentiment_pipeline.predict([review])
+        probs, preds = sentiment_pipeline.predict(review)
         logger.info('Sentiment extracted')
         pred_class = int(preds[0])
         confidence_score = float(np.max(probs[0]))
